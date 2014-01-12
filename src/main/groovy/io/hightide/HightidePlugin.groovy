@@ -26,13 +26,14 @@ class HightidePlugin implements Plugin<Project> {
         project.task('run', dependsOn: 'classes', type: JavaExec) {
             main = mainClassName
             classpath = project.sourceSets.main.runtimeClasspath
-            reloaderJar = project.configurations.reloadAgent.files.iterator().next()
+            reloaderJar = project.configurations.reloadAgent.files.iterator().next()   
             jvmArgs = ["-javaagent:${reloaderJar}"]
         }
 
         project.task('debug', dependsOn: 'classes', type: JavaExec) {
             main = mainClassName
             classpath = project.sourceSets.main.runtimeClasspath
+            reloaderJar = project.configurations.reloadAgent.files.iterator().next()   
             jvmArgs = ["-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005", "-javaagent:${reloaderJar}"]
         }
     }
